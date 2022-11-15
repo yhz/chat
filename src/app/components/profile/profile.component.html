@@ -1,0 +1,13 @@
+<div class="profile">
+  <div
+    class="profile__name"
+    [title]="user?.name"
+  >{{ user?.name }}</div>
+
+  <button
+    class="profile__logout"
+    [inlineSVG]="'/assets/cross.svg'"
+    title="Logout"
+    (click)="logout.emit()"
+  ></button>
+</div>

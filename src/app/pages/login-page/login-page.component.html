@@ -1,0 +1,21 @@
+<div class="sidebar">
+  <h1 class="sidebar__title">ngChat</h1>
+    <form class="login-form">
+      <input
+        type="text"
+        class="login-form__field"
+        placeholder="Type your name"
+        [formControl]="login"
+      />
+
+      <button
+        class="login-form__button"
+        [disabled]="login.invalid"
+        (click)="submit()"
+      >Login</button>
+    </form>
+</div>
+
+<div class="splash">
+  <span class="splash__icon" [inlineSVG]="'/assets/bubble.svg'"></span>
+</div>

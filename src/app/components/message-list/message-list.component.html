@@ -1,0 +1,30 @@
+<cdk-virtual-scroll-viewport
+  #scrollViewport
+  *ngIf="messages"
+  class="message-viewport"
+  [itemSize]="ITEM_SIZE"
+  [minBufferPx]="40"
+  (scrolledIndexChange)="scrolledIndex$.next($event)"
+>
+  <div
+    *cdkVirtualFor="let message of messages; trackBy: trackByUuid"
+    class="message-wrapper"
+    [class.message-wrapper--current-user]="message.user.uuid === currentUser?.uuid"
+  >
+    <div
+      class="message"
+      [class.message--current-user]="message.user.uuid === currentUser?.uuid"
+    >
+      <div class="message__name">{{ message.user.name }}</div>
+      <div
+        class="message__date"
+        [title]="message.createdAt | date:'medium'"
+      >{{ message.createdAt | date:'hh:mm:ss a' }}</div>
+      <div
+        class="message__bubble"
+        [style.background]="message.user.color"
+        [innerText]="message.content"
+      ></div>
+    </div>
+  </div>
+</cdk-virtual-scroll-viewport>

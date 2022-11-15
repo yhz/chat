@@ -17,11 +17,16 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2020",
-    "module": "es2020",
+    "module": "CommonJS",
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@shared/*": ["src/shared/*"],
+      "@server/*": ["src/server/*"],
+      "@client/*": ["src/app/*"],
+    },
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,0 +1,60 @@
+@import 'variables';
+@import 'mixins';
+
+.message-input {
+  $basePadding: 15px;
+  background: $lightBackgroundColor;
+  border-top: 1px solid $shadeColor;
+  padding: 5px $basePadding 15px;
+
+  &__count {
+    margin: 10px 5px;
+    color: $secondaryTextColor;
+    font-size: $smallFontSize;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+  }
+
+  &__control {
+    border: none;
+    resize: none;
+    display: inline-block;
+    padding: $basePadding;
+    height: 46px;
+    background: #fff;
+    border-radius: 12px;
+    width: calc(100% - 50px);
+    overflow: hidden;
+    word-break: break-all;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    border: none;
+    width: 30px;
+    padding: 0 10px;
+    box-sizing: content-box;
+    background: none;
+    align-items: center;
+
+    @include setSvgColor($primaryColor);
+    ::ng-deep svg * {
+      transition: $baseTransition;
+    }
+
+    &:hover {
+      @include setSvgColor(darken($primaryColor, 10%));
+    }
+
+    &:disabled {
+      @include setSvgColor(desaturate($primaryColor, 95%));
+    }
+  }
+}

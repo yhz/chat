@@ -1,0 +1,12 @@
+$primaryColor: #00a785;
+$shadeColor: lighten(#000, 88%);
+$primaryTextColor: #111b21;
+$secondaryTextColor: #667781;
+$lightBackgroundColor: #f0f2f5;
+
+$rootFontSize: 14px;
+$smallFontSize: 0.9rem;
+
+$baseTransition: 0.3s;
+$baseRadius: 9px;
+$heightContainer: clamp(550px, calc(100vh - 2rem), 1100px);

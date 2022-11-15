@@ -1,0 +1,45 @@
+@import 'mixins';
+
+.user-list {
+  list-style: none;
+  padding: 0;
+
+  &__item {
+    margin: 15px 0;
+  }
+
+  &__bullet {
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    border-radius: 100%;
+  }
+}
+
+.user {
+  &-viewport {
+    height: 100%;
+    width: 100%;
+    @include customScrollbar();
+  }
+
+  &-list {
+    &__bullet {
+      width: 15px;
+      margin-right: 5px;
+    }
+
+    &__name {
+      width: calc(100% - 60px);
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    &__item {
+      margin: 15px;
+      color: $primaryTextColor;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

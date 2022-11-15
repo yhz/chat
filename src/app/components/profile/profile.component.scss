@@ -1,0 +1,39 @@
+@import 'variables';
+@import 'mixins';
+
+.profile {
+  background: $lightBackgroundColor;
+  border-bottom: 1px solid $shadeColor;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__name {
+    font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 200px;
+    max-width: calc(100% - 30px);
+  }
+
+  &__logout {
+    width: 25px;
+    border: none;
+    display: flex;
+    background: none;
+    align-items: center;
+    @include setSvgColor($primaryTextColor);
+    ::ng-deep svg path {
+      transition: $baseTransition;
+    }
+
+    &:hover {
+      @include setSvgColor($primaryColor);
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<cdk-virtual-scroll-viewport
+  class="user-viewport"
+  [itemSize]="30"
+  [minBufferPx]="40"
+  *ngIf="users"
+>
+  <div
+    *cdkVirtualFor="let user of users; trackBy: trackByUuid"
+    class="user-list__item"
+  >
+    <div
+      class="user-list__bullet"
+      [inlineSVG]="'/assets/star.svg'"
+      [style.fill]="user.color"
+    ></div>
+
+    <div
+      class="user-list__name"
+      [title]="user.name"
+    >{{ user.name }}</div>
+  </div>
+</cdk-virtual-scroll-viewport>

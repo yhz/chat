@@ -1,0 +1,21 @@
+<div class="sidebar">
+  <app-profile
+    [user]="currentUser$ | async"
+    (logout)="logout()"
+  ></app-profile>
+  <h2 class="title">Online</h2>
+  <app-user-list [users]="users$ | async"></app-user-list>
+</div>
+<div class="chatbox">
+  <app-message-list
+    #messageList
+    [messages]="messages$ | async"
+    [currentUser]="currentUser$ | async"
+    (onScrollNearTop)="fetchOlderMessages()"
+  ></app-message-list>
+
+  <app-message-input
+    #messageInput
+    (onSend)="sendMessage($event)"
+  ></app-message-input>
+</div>

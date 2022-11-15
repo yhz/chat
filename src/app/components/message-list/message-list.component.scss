@@ -1,0 +1,83 @@
+@import 'variables';
+@import 'mixins';
+
+:host {
+  position: relative;
+  z-index: 0;
+
+  &:before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to bottom, fade-out(#fff, .1), transparent);
+    z-index: 1;
+  }
+}
+
+.message {
+  $root: &;
+  $radius: 15px;
+
+  display: inline-block;
+  max-width: 60%;
+  text-align: left;
+
+  &__name,
+  &__date {
+    display: inline-block;
+  }
+
+  &__name {
+    color: $primaryTextColor;
+    font-weight: bold;
+    margin: 0 10px;
+  }
+
+  &__date {
+    color: $secondaryTextColor;
+    font-size: $smallFontSize;
+  }
+
+  &__bubble {
+    margin-top: 3px;
+    width: 100%;
+    word-break: break-all;
+    padding: 15px;
+    color: #fff;
+    border-radius: $radius $radius $radius 0;
+  }
+
+  &--current-user {
+    margin-left: auto;
+
+    #{$root}__bubble {
+      border-radius: $radius $radius 0 $radius;
+    }
+  }
+
+  &-wrapper {
+    margin: 30px 15px;
+    animation: fadeIn 0.5s;
+
+    &--current-user {
+      text-align: right;
+    }
+  }
+
+  &-viewport {
+    height: 100%;
+    @include customScrollbar();
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

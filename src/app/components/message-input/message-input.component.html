@@ -1,0 +1,25 @@
+<div class="message-input">
+  <div class="message-input__count">
+    [ {{ messageControl.value.length }} / {{ MAX_LENGTH }} ]
+  </div>
+
+  <div class="message-input__row">
+    <textarea
+      #field
+      class="message-input__control"
+      placeholder="Type a message"
+      [formControl]="messageControl"
+      (keydown.enter)="sendMessage($event)"
+      (paste)="$event.preventDefault()"
+      [style.height.px]="fieldHeightPx"
+    ></textarea>
+
+    <button
+      class="message-input__button"
+      [disabled]="messageControl.invalid"
+      [inlineSVG]="'/assets/send.svg'"
+      (click)="sendMessage($event)"
+      title="Send message"
+    ></button>
+  </div>
+</div>

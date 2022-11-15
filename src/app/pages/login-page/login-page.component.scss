@@ -1,0 +1,64 @@
+@import 'variables';
+@import 'mixins';
+
+:host {
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.sidebar {
+  display: inline-block;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+
+  &__title {
+    font-size: 5rem;
+    margin: 0 0 1rem;
+  }
+}
+
+.login-form {
+  margin-top: 1rem;
+  display: flex;
+
+  &__field {
+    font-size: 1.2rem;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid $shadeColor;
+    padding: 5px 0;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  &__button {
+    background: $shadeColor;
+    border: none;
+  }
+}
+
+.splash {
+  background: $primaryColor;
+  display: inline-block;
+  width: 70%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  border-left: 1px solid darken($shadeColor, 5%);
+
+  &__icon {
+    position: absolute;
+    right: -30px;
+    top: -40px;
+    @include setSvgColor(fade-out(#000, .9));
+    ::ng-deep svg {
+      width: 700px;
+    }
+  }
+}
