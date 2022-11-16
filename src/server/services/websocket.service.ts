@@ -42,10 +42,9 @@ export default class WebsocketService {
 
       socket.on('data', (data: Buffer) => {
         if (data[0] === this.OPCODE.SHORT_TEXT_MESSAGE) {
-          const meta = this.decryptMessage(data);
-          const request = this.unmasked(meta.mask, meta.data);
-
-          this.request$.next([socket, request, terminated$]);
+          this.splitMessage(data).forEach((request) => {
+            this.request$.next([socket, request, terminated$]);
+          });
         }
       });
     });
@@ -125,26 +124,37 @@ export default class WebsocketService {
     const length = message[1] ^ this.DATA_LENGTH.MIDDLE;
 
     if (length <= this.DATA_LENGTH.SHORT) {
+      const lastIndex = length + 6;
+
       return {
         length,
         mask: message.subarray(2, 6),
-        data: message.subarray(6),
+        data: message.subarray(6, lastIndex),
+        nextMessage: message.subarray(lastIndex),
       };
     }
 
     if (length === this.DATA_LENGTH.LONG) {
+      const partLength = message.subarray(2, 4).readInt16BE();
+      const lastIndex = partLength + 8;
+
       return {
-        length: message.subarray(2, 4).readInt16BE(),
+        length: partLength,
         mask: message.subarray(4, 8),
-        data: message.subarray(8),
+        data: message.subarray(8, lastIndex),
+        nextMessage: message.subarray(lastIndex),
       };
     }
 
     if (length === this.DATA_LENGTH.VERY_LONG) {
+      const partLength = message.subarray(2, 10).readBigInt64BE();
+      const lastIndex = Number(partLength) + 14;
+
       return {
-        length: message.subarray(2, 10).readBigInt64BE(),
+        length: partLength,
         mask: message.subarray(10, 14),
-        data: message.subarray(14),
+        data: message.subarray(14, lastIndex),
+        nextMessage: message.subarray(lastIndex),
       };
     }
 
@@ -155,5 +165,18 @@ export default class WebsocketService {
     const maskLength = 4;
     return Buffer.from(data.map((byte, i) => byte ^ mask[i % maskLength]));
   }
+
+  private splitMessage(message: Buffer, requests: Buffer[] = []): Buffer[] {
+    const meta = this.decryptMessage(message);
+    const request = this.unmasked(meta.mask, meta.data);
+    requests.push(request);
+
+    if (meta.nextMessage.length) {
+      this.splitMessage(meta.nextMessage, requests);
+    }
+
+    return requests;
+  }
+
 }
 

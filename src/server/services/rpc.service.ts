@@ -41,6 +41,10 @@ export default class RpcService {
       }
     }
 
+    if (uuid) {
+      return new RpcResponse(null, uuid, 'Method is not registered');
+    }
+
     return null;
   }
 
