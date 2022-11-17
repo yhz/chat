@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, filter, map, Observable, of, ReplaySubject, tap, throwError } from 'rxjs';
+import { catchError, filter, map, Observable, of, ReplaySubject, skipUntil, tap, throwError } from 'rxjs';
 import jwtDecode from 'jwt-decode';
 import User from '@shared/user.entity';
 import { JwtPayload } from '@shared/interfaces';
@@ -16,6 +16,7 @@ export class AuthService {
 
   public readonly currentUser$: ReplaySubject<User | null> = new ReplaySubject(1);
   public readonly isAuthenticated$: Observable<boolean> = this.currentUser$.pipe(
+    skipUntil(this.websocketService.isConnected$),
     map(Boolean),
   );
 
@@ -29,7 +30,9 @@ export class AuthService {
     this.websocketService.isConnected$.pipe(
       filter(Boolean),
     ).subscribe(() => {
-      this.loginByToken().subscribe();
+      this.loginByToken().subscribe((user) => {
+        this.currentUser$.next(user);
+      });
     });
   }
 
@@ -40,7 +43,7 @@ export class AuthService {
       return this.apiFacade.loginByToken(token).pipe(
         tap(() => {
           const user = this.getUserFromToken(token);
-          this.currentUser$.next(user);
+          return of(user);
         }),
         catchError((error) => {
           if (error.message === BadTokenErrorMessage) {
