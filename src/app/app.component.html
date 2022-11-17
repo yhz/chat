@@ -1,3 +1,7 @@
+<div *ngIf="isDisconnected$ | async" class="disconnect">
+  <div class="disconnect__title">{{ connectingTitle$ | async }}</div>
+</div>
+
 <div class="container">
   <router-outlet>
   </router-outlet>

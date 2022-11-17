@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, ReplaySubject, tap, throwError } from 'rxjs';
-import User from '@shared/user.entity';
-import { ApiFacade } from './api.facade';
+import { Router } from '@angular/router';
+import { catchError, filter, map, Observable, of, ReplaySubject, tap, throwError } from 'rxjs';
 import jwtDecode from 'jwt-decode';
+import User from '@shared/user.entity';
 import { JwtPayload } from '@shared/interfaces';
 import { deserializeEntity } from '@shared/helpers';
 import { BadTokenErrorMessage } from '@shared/constants';
-import { Router } from '@angular/router';
+import { ApiFacade } from '@client/services/api.facade';
+import { WebsocketService } from '@client/services/websocket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +23,13 @@ export class AuthService {
 
   constructor(
     private apiFacade: ApiFacade,
-    private router: Router
+    private router: Router,
+    private websocketService: WebsocketService
   ) {
-    this.loginByToken().subscribe((user) => {
-      this.currentUser$.next(user);
+    this.websocketService.isConnected$.pipe(
+      filter(Boolean),
+    ).subscribe(() => {
+      this.loginByToken().subscribe();
     });
   }
 

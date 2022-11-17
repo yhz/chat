@@ -10,6 +10,7 @@ import { Service } from '@server/common/service.decorator';
 import UserService from '@server/services/user.service';
 import AlertService from '@server/services/alert.service';
 import ConfigService from '@server/services/config.service';
+import RpcError from '@server/common/rpc.error';
 
 @Service
 export default class MessageService {
@@ -31,7 +32,7 @@ export default class MessageService {
     const user = this.userService.getUserByConnection(connection);
 
     if (!user) {
-      throw Error('User not found by connection');
+      throw new RpcError('User not found by connection');
     }
 
     const message = await this.saveMessage(content, user);

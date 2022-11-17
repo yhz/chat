@@ -26,6 +26,7 @@
       "@shared/*": ["src/shared/*"],
       "@server/*": ["src/server/*"],
       "@client/*": ["src/app/*"],
+      "@environments/*": ["src/environments/*"],
     },
   },
   "angularCompilerOptions": {

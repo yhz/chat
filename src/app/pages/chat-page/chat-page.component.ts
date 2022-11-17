@@ -1,10 +1,11 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { delay, map, Observable, ReplaySubject, skipUntil, skipWhile, take } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { delay, filter, map, Observable, ReplaySubject, skipUntil, switchMap, take } from 'rxjs';
 import User from '@shared/user.entity';
 import Message from '@shared/message.entity';
 import { AuthService } from '@client/services/auth.service';
 import { UserService } from '@client/services/user.service';
 import { MessageService } from '@client/services/message.service';
+import { WebsocketService } from '@client/services/websocket.service';
 import { MessageInputComponent } from '@client/components/message-input/message-input.component';
 import { MessageListComponent } from '@client/components/message-list/message-list.component';
 
@@ -32,17 +33,24 @@ export class ChatPageComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private messageService: MessageService,
+    private websocketService: WebsocketService,
   ) {}
 
   public ngOnInit(): void {
-    this.userService.fetchAllUsers().subscribe();
-    this.messageService.fetchMessagesWithOverwrite(15, 0).subscribe();
+    this.websocketService.isConnected$.pipe(
+      filter(Boolean),
+      switchMap(() => this.authService.isAuthenticated$)
+    ).subscribe(() => {
+      this.userService.fetchAllUsers().subscribe();
+      this.messageService.fetchMessagesWithOverwrite(15, 0).subscribe();
+      this.messageList?.scrollToBottom();
+    });
 
     this.messages$.pipe(
       take(1),
       delay(0),
-    ).subscribe((m) => {
-      this.messageList?.scrollViewport?.scrollToIndex(m.length - 1);
+    ).subscribe(() => {
+      this.messageList?.scrollToBottom();
     });
   }
 
