@@ -10,6 +10,7 @@
       placeholder="Type a message"
       [formControl]="messageControl"
       (keydown.enter)="sendMessage($event)"
+      (keydown.shift.enter)="$event.preventDefault()"
       (paste)="$event.preventDefault()"
       [style.height.px]="fieldHeightPx"
     ></textarea>
