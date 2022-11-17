@@ -11,7 +11,7 @@ body {
 
   background: linear-gradient(to bottom, $bgColor, darken($bgColor, 7%));
   font-family: 'Open Sans';
-  font-weight: 400;
+  font-weight: normal;
   font-size: $rootFontSize;
   color: $primaryTextColor;
   height: 100%;
