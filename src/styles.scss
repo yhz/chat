@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-html {
+body {
   $bgColor: #e2e2de;
 
   background: linear-gradient(to bottom, $bgColor, darken($bgColor, 7%));
