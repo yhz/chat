@@ -22,14 +22,14 @@ export class AuthGuard implements CanActivate {
 
     return this.authService.currentUser$.pipe(
       map((user) => {
-        const result = (!isLoginPage && !!user) || (isLoginPage && !user);
+        const canActivate = (!isLoginPage && !!user) || (isLoginPage && !user);
 
-        if (!result) {
+        if (!canActivate) {
           let navigatePath = isLoginPage ? Path.root : Path.login;
-          this.router.navigate([navigatePath]);
+          return this.router.createUrlTree([navigatePath]);
         }
 
-        return result;
+        return canActivate;
       })
     );
   }
