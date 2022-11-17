@@ -12,7 +12,7 @@ export default class JwtService {
 
   private readonly configService: ConfigService = new ConfigService();
 
-  private readonly PRIVATE_KEY_PATH = this.configService.config.privateKeyPath;
+  private readonly PRIVATE_KEY_PATH: string = this.configService.config.privateKeyPath;
   private readonly TOKEN_EXPIRES_AFTER: string = '1d';
 
   private privateKeyContent: string = this.getPrivateKey();

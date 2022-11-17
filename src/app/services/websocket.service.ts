@@ -28,9 +28,8 @@ export class WebsocketService {
   public readonly serverMessage$: Subject<string> = new Subject();
 
   private socket: WebSocket = this.createConnection();
-
-  private RETRY_DELAY_TIME = 2000;
-  private REQUEST_TIMEOUT = 7000;
+  private RETRY_DELAY_TIME: number = 2000;
+  private REQUEST_TIMEOUT: number = 7000;
 
   constructor() {
     this.readyState$.pipe(

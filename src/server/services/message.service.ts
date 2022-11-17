@@ -20,7 +20,7 @@ export default class MessageService {
   private configService: ConfigService = new ConfigService();
 
   private STORE_DIRECTORY: string = this.configService.config.storePath;
-  private COLLECTION_LIMIT = 2500;
+  private COLLECTION_LIMIT: number = 2500;
 
   private messages: EntityCollection<Message> = new EntityCollection();
 

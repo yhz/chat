@@ -1,6 +1,6 @@
-import StringifiedClass from './stringifiedClass';
+import StringifiedObject from '@shared/stringifiedObject';
 
-export default class RpcRequest<T = unknown> extends StringifiedClass {
+export default class RpcRequest<T = unknown> extends StringifiedObject {
 
   public uuid: string | undefined;
 

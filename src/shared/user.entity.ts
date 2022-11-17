@@ -1,7 +1,7 @@
-import StringifiedClass from './stringifiedClass';
-import { getRandomIntegerInRange } from './helpers';
+import StringifiedObject from '@shared/stringifiedObject';
+import { getRandomIntegerInRange } from '@shared/helpers';
 
-export default class User extends StringifiedClass {
+export default class User extends StringifiedObject {
 
   constructor(
     public readonly name: string,

@@ -1,7 +1,7 @@
-import StringifiedClass from './stringifiedClass';
-import User from './user.entity';
+import StringifiedObject from '@shared/stringifiedObject';
+import User from '@shared/user.entity';
 
-export default class Message extends StringifiedClass {
+export default class Message extends StringifiedObject {
 
   public readonly createdAt: number;
 

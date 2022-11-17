@@ -1,6 +1,6 @@
-import StringifiedClass from './stringifiedClass';
+import StringifiedObject from '@shared/stringifiedObject';
 
-export default class RpcAlert<T = unknown> extends StringifiedClass {
+export default class RpcAlert<T = unknown> extends StringifiedObject {
 
   constructor(
     public alert: string,

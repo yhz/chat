@@ -1,4 +1,4 @@
-import RpcError from './rpc.error';
+import RpcError from '@server/common/rpc.error';
 
 export function normalizeInput(input: string, maxLength: number): string {
   const normalizedInput = input.trim().replace(/\s{2,}/g, ' ');

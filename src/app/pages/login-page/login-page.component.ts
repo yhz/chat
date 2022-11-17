@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { MaxUsernameLength } from '@shared/constants';
+import { Path } from '@client/common/constants';
 import { AuthService } from '@client/services/auth.service';
 
 @Component({
@@ -45,7 +46,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   public submit() {
     this.authService.login(this.login.value.trim()).subscribe(() => {
-      this.router.navigate(['/']);
+      this.router.navigate([Path.root]);
     });
   }
 

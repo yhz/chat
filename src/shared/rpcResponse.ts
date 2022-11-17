@@ -1,6 +1,6 @@
-import StringifiedClass from './stringifiedClass';
+import StringifiedObject from '@shared/stringifiedObject';
 
-export default class RpcResponse<T> extends StringifiedClass {
+export default class RpcResponse<T> extends StringifiedObject {
 
   constructor(
     public result: T,

@@ -7,8 +7,8 @@ import { Service } from '@server/common/service.decorator';
 @Service
 export default class WebsocketService {
 
-  private HANDSHAKE_CONSTANT = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
-  private PING_INTERVAL = 5000;
+  private HANDSHAKE_CONSTANT: string = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
+  private PING_INTERVAL: number = 5000;
 
   private OPCODE = {
     PING: 0x89,

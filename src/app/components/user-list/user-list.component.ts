@@ -10,7 +10,7 @@ import { trackByUuid } from '@client/common/helpers';
 })
 export class UserListComponent {
 
-  @Input() users!: User[] | null;
+  @Input() users?: User[] | null;
   public readonly trackByUuid: TrackByFunction<User> = trackByUuid;
 
 }

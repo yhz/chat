@@ -2,8 +2,7 @@ import { MaxMessageLength, MaxUsernameLength, RpcAlertName, RpcMethodName } from
 import User from '@shared/user.entity';
 import Message from '@shared/message.entity';
 import Chat from '@server/chat';
-import RpcError from './common/rpc.error';
-import { normalizeInput } from './common/helpers';
+import { normalizeInput } from '@server/common/helpers';
 
 const chat = new Chat();
 

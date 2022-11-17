@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import RpcRequest from '@shared/rpcRequest';
-import { WebsocketService } from './websocket.service';
 import RpcResponse from '@shared/rpcResponse';
-import RpcAlert from '../../shared/rpcAlert';
+import RpcAlert from '@shared/rpcAlert';
+import { WebsocketService } from '@client/services/websocket.service';
 
 @Injectable({
   providedIn: 'root'

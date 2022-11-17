@@ -6,6 +6,7 @@ import User from '@shared/user.entity';
 import { JwtPayload } from '@shared/interfaces';
 import { deserializeEntity } from '@shared/helpers';
 import { BadTokenErrorMessage } from '@shared/constants';
+import { Path } from '@client/common/constants';
 import { ApiFacade } from '@client/services/api.facade';
 import { WebsocketService } from '@client/services/websocket.service';
 
@@ -20,7 +21,7 @@ export class AuthService {
     map(Boolean),
   );
 
-  private SESSION_TOKEN_KEY = 'sessionToken';
+  private SESSION_TOKEN_KEY: string = 'sessionToken';
 
   constructor(
     private apiFacade: ApiFacade,
@@ -68,7 +69,7 @@ export class AuthService {
   public logout(): Observable<boolean> {
     return this.apiFacade.logout().pipe(
       tap(() => this.clearToken()),
-      tap(() => this.router.navigate(['/login'])),
+      tap(() => this.router.navigate([Path.login])),
     );
   }
 

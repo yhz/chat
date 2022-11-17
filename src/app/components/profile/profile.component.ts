@@ -9,7 +9,7 @@ import User from '@shared/user.entity';
 })
 export class ProfileComponent {
 
-  @Input() user!: User | null;
+  @Input() user?: User | null;
   @Output() logout: EventEmitter<void> = new EventEmitter();
 
 }
